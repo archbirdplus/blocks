@@ -23,7 +23,7 @@ struct Skill {
    }
 
    let name: String
-   let difficlty: Int
+   let difficulty: Int
    let category: Category
    let support: Support
 
@@ -36,7 +36,8 @@ struct Skill {
 }
 
 extension Skill {
-   let skills: [Skill] = [
+   // A list of every valid skill in the Xcel Blocks Code of Points
+   static let skills: [Skill] = [
       // Two Arms
       Skill("Tuck", 1, .pike),
       Skill("Straddle", 2, .pike),
