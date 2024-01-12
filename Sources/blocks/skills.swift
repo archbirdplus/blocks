@@ -13,8 +13,8 @@ struct Skill {
 
     // The category this skill falls under when looking up the difficulty
     // of a transition in or out of it.
-    enum Category {
-        case pike
+    enum Category: Int {
+        case pike = 0
         case croc
         case planche // one arm planche is not a valid skill
         case handstand
@@ -27,7 +27,8 @@ struct Skill {
     let difficulty: Int
     let category: Category
     let support: Support
-    let over: Bool // Determines whether to add +1/2/3 on entering the position.
+    // Determines whether to add +1/2/3 on entering the position.
+    let over: Bool
 
     init(_ name: String, _ diff: Int, _ category: Category, _ support: Support = .twoArm, over: Bool = false) {
         self.name = name
@@ -39,7 +40,8 @@ struct Skill {
 }
 
 extension Skill {
-    // A list of every valid skill in the Xcel Blocks Code of Points
+    // A list of every valid skill in the Xcel Blocks Code of Points, along with
+    // some properties of them.
     static let skills: [Skill] = [
         // Two Arms
         Skill("Tuck", 1, .pike),
