@@ -6,7 +6,7 @@ fileprivate let X = 0;
 
 // The value of a transition from one Category to another.
 // transitions[support][start][end]
-static let transitions: [[[Int]]] = [
+let transitions: [[[Int]]] = [
     // Two Arms
     [
     [0, 0, 0, 3, 3, 3, 3], // from pike

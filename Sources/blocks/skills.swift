@@ -3,7 +3,7 @@
 // Represents the most granular type of skill that is still recognized
 // as distinct- groups together variations that are considered interchangeable,
 // but still separates skills with different difficulties.
-struct Skill {
+class Skill {
     // The point of support of the skill.
     enum Support {
         case twoArm
@@ -30,12 +30,35 @@ struct Skill {
     // Determines whether to add +1/2/3 on entering the position.
     let over: Bool
 
+    var isHandstand: Bool {
+        switch category {
+        case .pike, .croc, .planche:
+            return false
+        case .handstand, .arch, .yogi, .flag:
+            return true
+        }
+    }
+
+    // TODO: (H.f.) Some skills have multiple variations, which allows it to
+    // be repeated consecutively.
     init(_ name: String, _ diff: Int, _ category: Category, _ support: Support = .twoArm, over: Bool = false) {
         self.name = name
         self.difficulty = diff
         self.category = category
         self.support = support
         self.over = over
+    }
+}
+
+extension Skill: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.name)
+    }
+
+    static func == (lhs: Skill, rhs: Skill) -> Bool {
+        // TODO: names might be the same, hashing to the same value, yet
+        // might not be actually equatable
+        return lhs === rhs
     }
 }
 
