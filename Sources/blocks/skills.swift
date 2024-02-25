@@ -5,10 +5,12 @@
 // but still separates skills with different difficulties.
 class Skill {
     // The point of support of the skill.
-    enum Support {
-        case twoArm
-        case twoToOne
-        case oneArm
+    enum Support: Int {
+        case twoArm = 0
+        case twoToOne = 1
+        case oneArm = 2
+
+        var index: Int { self.rawValue }
     }
 
     // The category this skill falls under when looking up the difficulty
@@ -21,6 +23,8 @@ class Skill {
         case arch
         case yogi
         case flag
+
+        var index: Int { self.rawValue }
     }
 
     let name: String
@@ -123,12 +127,18 @@ extension Skill {
         Skill("1-Arm Arch FT", 16, .arch, .oneArm),
         Skill("1-Arm Split Arch", 16, .arch, .oneArm),
         Skill("1-Arm Side Flag", 16, .flag, .oneArm),
-        Skill("1-Arm Split Flag Above", 17, .flag, .oneArm),
-        Skill("1-Arm Split Flag Below", 17, .flag, .oneArm),
+        // There are two pictures of 1-Arm Split Flag, however due to (H.d.)
+        // they are identical.
+        Skill("1-Arm Split Flag", 17, .flag, .oneArm),
+        Skill("1-Arm Split Flag", 17, .flag, .oneArm),
         Skill("1-Arm Flag FT", 18, .flag, .oneArm),
         Skill("1-Arm Overflag", 18, .flag, .oneArm, over: true),
         Skill("1-Arm Overarch", 19, .arch, .oneArm, over: true),
         Skill("1-Arm Overarch FT", 20, .arch, .oneArm, over: true),
     ]
+
+    static func named(_ name: String) -> Skill? {
+        Self.skills.first { $0.name == name }
+    }
 }
 
