@@ -1,25 +1,25 @@
 
-struct Message {
+public struct Message {
     var location: Int?
     var str: String
     // Measured in tenths of a point.
     var penalty: Int?
 }
 
-class ErrorLog {
+public class ErrorLog {
     var errors: [Message] = []
     var warnings: [Message] = []
 
-    func err(loc: Int? = nil, _ str: String, penalty: Int? = nil) {
+    public func err(loc: Int? = nil, _ str: String, penalty: Int? = nil) {
         errors.append(Message(location: loc, str: str, penalty: penalty))
     }
 
-    func warn(loc: Int? = nil, _ str: String, penalty: Int? = nil) {
+    public func warn(loc: Int? = nil, _ str: String, penalty: Int? = nil) {
         warnings.append(Message(location: loc, str: str, penalty: penalty))
     }
 }
 
-func validate(_ routine: Routine) -> ErrorLog {
+public func validate(_ routine: Routine) -> ErrorLog {
     let err = ErrorLog()
     validateSpecialRequirements(routine, err)
     return err
@@ -27,7 +27,7 @@ func validate(_ routine: Routine) -> ErrorLog {
 
 // Section G.
 // Section I.
-func validateSpecialRequirements(_ routine: Routine, _ err: ErrorLog) {
+public func validateSpecialRequirements(_ routine: Routine, _ err: ErrorLog) {
     validateMinSkills(routine, err)
     validateMinHandstands(routine, err)
     validateSupports(routine, err)
@@ -35,7 +35,7 @@ func validateSpecialRequirements(_ routine: Routine, _ err: ErrorLog) {
     // TODO: warn about consecutive repeats- they must have variations
 }
 
-func validateMinSkills(_ routine: Routine, _ err: ErrorLog) {
+public func validateMinSkills(_ routine: Routine, _ err: ErrorLog) {
     let required = [5, 7, 10, 10, 10][routine.level.index]
     let skillCount = routine.skills.count
     if skillCount < required {
@@ -50,7 +50,7 @@ func validateMinSkills(_ routine: Routine, _ err: ErrorLog) {
     }
 }
 
-func validateMinHandstands(_ routine: Routine, _ err: ErrorLog) {
+public func validateMinHandstands(_ routine: Routine, _ err: ErrorLog) {
     let required = [0, 1, 2, 3, 4][routine.level.index]
     let uniqueHandstands = Set(routine.skills.filter { $0.isHandstand }).count
     if uniqueHandstands < required {
@@ -61,7 +61,7 @@ func validateMinHandstands(_ routine: Routine, _ err: ErrorLog) {
     }
 }
 
-func validateSupports(_ routine: Routine, _ err: ErrorLog) {
+public func validateSupports(_ routine: Routine, _ err: ErrorLog) {
     switch routine.level {
     case .bronze, .silver, .gold:
         return
@@ -84,7 +84,7 @@ func validateSupports(_ routine: Routine, _ err: ErrorLog) {
     }
 }
 
-func validateDifficulty(_ routine: Routine, _ err: ErrorLog) {
+public func validateDifficulty(_ routine: Routine, _ err: ErrorLog) {
     // Min difficulty only applies to platinum, but it is recommended to
     // achieve max difficulty otherwise.
     // Going over max difficulty is perfectly fine.

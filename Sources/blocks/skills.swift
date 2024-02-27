@@ -3,9 +3,9 @@
 // Represents the most granular type of skill that is still recognized
 // as distinct- groups together variations that are considered interchangeable,
 // but still separates skills with different difficulties.
-class Skill {
+public class Skill {
     // The point of support of the skill.
-    enum Support: Int {
+    public enum Support: Int {
         case twoArm = 0
         case twoToOne = 1
         case oneArm = 2
@@ -15,7 +15,7 @@ class Skill {
 
     // The category this skill falls under when looking up the difficulty
     // of a transition in or out of it.
-    enum Category: Int {
+    public enum Category: Int {
         case pike = 0
         case croc
         case planche // one arm planche is not a valid skill
@@ -45,7 +45,7 @@ class Skill {
 
     // TODO: (H.f.) Some skills have multiple variations, which allows it to
     // be repeated consecutively.
-    init(_ name: String, _ diff: Int, _ category: Category, _ support: Support = .twoArm, over: Bool = false) {
+    public init(_ name: String, _ diff: Int, _ category: Category, _ support: Support = .twoArm, over: Bool = false) {
         self.name = name
         self.difficulty = diff
         self.category = category
@@ -55,11 +55,11 @@ class Skill {
 }
 
 extension Skill: Hashable {
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(self.name)
     }
 
-    static func == (lhs: Skill, rhs: Skill) -> Bool {
+    public static func == (lhs: Skill, rhs: Skill) -> Bool {
         // TODO: names might be the same, hashing to the same value, yet
         // might not be actually equatable
         return lhs === rhs
@@ -69,7 +69,7 @@ extension Skill: Hashable {
 extension Skill {
     // A list of every valid skill in the Xcel Blocks Code of Points, along with
     // some properties of them.
-    static let skills: [Skill] = [
+    public static let skills: [Skill] = [
         // Two Arms
         Skill("Tuck", 1, .pike),
         Skill("Straddle", 2, .pike),
@@ -137,7 +137,7 @@ extension Skill {
         Skill("1-Arm Overarch FT", 20, .arch, .oneArm, over: true),
     ]
 
-    static func named(_ name: String) -> Skill? {
+    public static func named<Str: StringProtocol>(_ name: Str) -> Skill? {
         Self.skills.first { $0.name == name }
     }
 }

@@ -6,14 +6,19 @@ import PackageDescription
 let package = Package(
     name: "blocks",
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
+        // The library
         .library(
             name: "blocks",
             targets: ["blocks"]),
+        // The commandline frontend for the library
+        .executable(
+            name: "tariff",
+            targets: ["tariff"]),
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
+        .executableTarget(
+            name: "tariff",
+            dependencies: ["blocks"]),
         .target(
             name: "blocks"),
         .testTarget(
