@@ -14,13 +14,19 @@ let package = Package(
         .executable(
             name: "tariff",
             targets: ["tariff"]),
+        .executable(
+            name: "maximize",
+            targets: ["maximize"]),
     ],
     targets: [
+        .target(
+            name: "blocks"),
         .executableTarget(
             name: "tariff",
             dependencies: ["blocks"]),
-        .target(
-            name: "blocks"),
+        .executableTarget(
+            name: "maximize",
+            dependencies: ["blocks"]),
         .testTarget(
             name: "blocksTests",
             dependencies: ["blocks"]),
