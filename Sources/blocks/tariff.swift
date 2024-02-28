@@ -1,16 +1,16 @@
 
 public class TariffSheet {
-    struct Box {
-        let skill: Skill
-        let link: Int
-        let value: Int
+    public struct Box {
+        public let skill: Skill
+        public let link: Int
+        public let value: Int
     }
-    let level: Routine.Level
-    let declaration: [Box]
-    let elementsValue: Int
-    let linksValue: Int
+    public let level: Routine.Level
+    public let declaration: [Box]
+    public let elementsValue: Int
+    public let linksValue: Int
     public var difficultyValue: Int { elementsValue + linksValue }
-    var dscore: Double {
+    public var dscore: Double {
         let maxD = [10, 25, 45, 65, nil][level.index]
         let capped = maxD == nil ? difficultyValue : min(difficultyValue, maxD!)
         return Double(capped) / 10.0

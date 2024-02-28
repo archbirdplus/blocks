@@ -1,14 +1,14 @@
 
 public struct Message {
-    var location: Int?
-    var str: String
+    public var location: Int?
+    public var str: String
     // Measured in tenths of a point.
-    var penalty: Int?
+    public var penalty: Int?
 }
 
 public class ErrorLog {
-    var errors: [Message] = []
-    var warnings: [Message] = []
+    public var errors: [Message] = []
+    public var warnings: [Message] = []
 
     public func err(loc: Int? = nil, _ str: String, penalty: Int? = nil) {
         errors.append(Message(location: loc, str: str, penalty: penalty))

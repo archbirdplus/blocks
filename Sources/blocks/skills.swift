@@ -10,7 +10,7 @@ public class Skill {
         case twoToOne = 1
         case oneArm = 2
 
-        var index: Int { self.rawValue }
+        public var index: Int { self.rawValue }
     }
 
     // The category this skill falls under when looking up the difficulty
@@ -24,17 +24,17 @@ public class Skill {
         case yogi
         case flag
 
-        var index: Int { self.rawValue }
+        public var index: Int { self.rawValue }
     }
 
-    let name: String
-    let difficulty: Int
-    let category: Category
-    let support: Support
+    public let name: String
+    public let difficulty: Int
+    public let category: Category
+    public let support: Support
     // Determines whether to add +1/2/3 on entering the position.
-    let over: Bool
+    public let over: Bool
 
-    var isHandstand: Bool {
+    public var isHandstand: Bool {
         switch category {
         case .pike, .croc, .planche:
             return false
