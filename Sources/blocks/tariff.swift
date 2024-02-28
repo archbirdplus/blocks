@@ -21,7 +21,9 @@ public class TariffSheet {
         // An identical skill is defined in the Xcel Blocks Tables of
         // Difficulty according to the name of each skill.
         var repeats: [String: Int] = [:]
-        _ = routine.skills.reduce(routine.introSkill) { prev, next in
+        let maxSkills = [5, 7, 10, 10, 10][routine.level.index]
+        _ = routine.skills.prefix(maxSkills).reduce(routine.introSkill)
+            { prev, next in
             repeats[next.name, default: 0] += 1
             declaration.append(
                 Box(
