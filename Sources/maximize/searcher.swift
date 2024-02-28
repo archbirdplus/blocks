@@ -18,7 +18,8 @@ class Searcher {
         self.skillDifficultyUpperBound = skillSet.lazy
             .flatMap { a in skillSet.lazy.map { b in (a: a, b: b) } }
             .reduce(0) { r, x in
-                max(r, skillValue(x.a) + skillValue(x.b) + transitionValue(x.a, to: x.b))
+                // Transition into a skill, plus the skill
+                max(r, transitionValue(x.a, to: x.b) + skillValue(x.b))
             }
         self.orders = (0..<maxSkills).map { _ in skillSet.map { ($0, 0) } }
     }
