@@ -8,6 +8,20 @@ public class Routine {
         case diamond
 
         public var index: Int { self.rawValue }
+        public var name: String {
+            switch self {
+            case .bronze:
+                return "Bronze"
+            case .silver:
+                return "Silver"
+            case .gold:
+                return "Gold"
+            case .platinum:
+                return "Platinum"
+            case .diamond:
+                return "Diamond"
+            }
+        }
         public static func named<Str: StringProtocol>(_ str: Str) -> Level? {
             switch str.lowercased() {
             case "bronze":
