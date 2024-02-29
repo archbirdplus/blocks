@@ -14,5 +14,6 @@ if CommandLine.arguments.count < 2 {
 }
 print("Maximizing difficulty for \(level.name).")
 let searcher = Searcher(Skill.skills, level: level)
-searcher.search()
+let selectedIntros = CommandLine.arguments.dropFirst(2).compactMap(Skill.named)
+searcher.search(from: selectedIntros)
 

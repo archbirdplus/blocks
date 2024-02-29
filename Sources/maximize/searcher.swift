@@ -28,8 +28,9 @@ class Searcher {
         print("\(r.introSkill?.name ?? "") : \(r.skills.map { $0.name }.joined(separator: ", "))")
     }
 
-    func search() {
-        let intros = [Skill.Category.pike, .croc, .planche, .handstand, .arch, .yogi, .flag]
+    func search(from selectedIntros: [Skill?] = []) {
+        // Handstand, arch, yogi, and flag are symmetrical wrt transition values
+        let intros = !selectedIntros.isEmpty ? selectedIntros : [Skill.Category.pike, .croc, .planche, .handstand, nil]
             .lazy
             .flatMap { c in
                 [Skill.Support.twoArm, .twoToOne, .oneArm].compactMap { s in
@@ -42,10 +43,9 @@ class Searcher {
             }
         print("Selected \(intros.count) intros out of \(skillSet.count) skills.")
         for skill in intros {
-            print("trying intro \(skill.name)")
+            print(skill != nil ? "trying intro \(skill!.name)" : "trying no intro")
             search(intro: skill, [], depth: 0)
         }
-        search(intro: nil, [], depth: 0)
         print("final difficulty: \(maxDifficulty)")
         print("best routines:")
         best.forEach(shortPrintRoutine)
