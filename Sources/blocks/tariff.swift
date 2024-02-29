@@ -6,6 +6,7 @@ public class TariffSheet {
         public let value: Int
     }
     public let level: Routine.Level
+    public let routine: Routine
     public let declaration: [Box]
     public let elementsValue: Int
     public let linksValue: Int
@@ -35,6 +36,7 @@ public class TariffSheet {
             return next
         }
         self.level = routine.level
+        self.routine = routine
         self.declaration = declaration
         self.linksValue = declaration.reduce(0) { r, x in r + x.link }
         self.elementsValue = declaration.reduce(0) { r, x in r + x.value }

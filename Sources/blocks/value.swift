@@ -9,6 +9,7 @@ public func transitionValue(_ from: Skill?, to: Skill) -> Int {
     let value: Int = transitions[from.support.index][from.category.index][to.category.index]
     var overBonus = 0
     // This rule is a little confusing.
+    // TODO: Does this apply for the first element of a routine?
     // Additional transition value is given ONLY ENTERING these positions from any position as long as the point of support is not changed.
     if to.over && to != from {
         // Support enums are ordered twoArm, twoToOne, oneArm; 0, 1, 2 raw

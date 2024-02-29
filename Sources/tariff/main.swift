@@ -14,9 +14,15 @@ guard let level = Routine.Level.named(lines[0]) else {
 }
 
 // TODO: match skills against softer patterns
-let skills = lines.dropFirst().compactMap(Skill.named)
+let allSkills = lines.dropFirst().compactMap(Skill.named)
+let maxSkills = [5, 7, 10, 10, 10][level.index]
 
-let routine = Routine(introSkill: nil, skills: skills, level: level)
+// If there are more skills than the max, let the first be a 1'' hold for
+// transition value.
+let introSkill = allSkills.count > maxSkills ? allSkills[0] : nil
+let skills = allSkills.count > maxSkills ? Array(allSkills.dropFirst()) : allSkills
+
+let routine = Routine(introSkill: introSkill, skills: skills, level: level)
 
 let tariff = TariffSheet(routine)
 
@@ -27,6 +33,9 @@ let longest = boxes.reduce(0) { r, x in max(r, x.skill.name.count) }
 let indent = String(repeating: " ", count: longest)
 
 print("\(indent)\t| Link\t| Value")
+if let intro = tariff.routine.introSkill {
+    print("(1'' hold \(intro.name))")
+}
 for box in boxes {
     let dent = String(repeating: " ", count: longest - box.skill.name.count)
     print("\(box.skill.name)\(dent)\t| \(box.link)\t| \(box.value)")
