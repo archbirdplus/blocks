@@ -39,6 +39,14 @@ Handstand
 Handstand FT
 ```
 
+### Maximize
+
+Maximize is an additional program that uses Blocks to find the maximum difficulty for a routine. Currently it thinks you can do any skill in the Code of Points. To make it run faster, you can limit it to one 1 second hold to transition into the first skill.
+
+```
+swift run maximize silver "Straddle"
+```
+
 ## Build Process
 
 ```
