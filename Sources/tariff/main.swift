@@ -1,20 +1,59 @@
 import Foundation
 import blocks
 
-let path = CommandLine.arguments[1]
-guard let text = try? String(contentsOf: URL(fileURLWithPath: path)) else {
-    print("Failed to read file \"\(path)\".")
-    exit(1)
-}
-let lines = text.split(separator: "\n").map(String.init)
+let args = CommandLine.arguments
+let path = args.count > 1 ? args[1] : nil
 
-guard let level = Routine.Level.named(lines[0]) else {
-    print("Could not read level: \"\(lines[0])\" (must be Bronze, Silver, Gold, Platinum, or Diamond).")
-    exit(1)
+func getLines() -> [String] {
+    if let path = path {
+        guard let text = try? String(contentsOf: URL(fileURLWithPath: path))
+            else {
+            print("Failed to read file \"\(path)\".")
+            exit(1)
+        }
+        return text.split(separator: "\n").map(String.init)
+    } else {
+        var lines: [String] = []
+        fputs("level: ", stderr)
+        while let line = readLine() {
+            if line == "" && !lines.isEmpty { break }
+            defer {
+                fputs(lines.isEmpty ? "level: " : "skill: ", stderr)
+            }
+            if lines.isEmpty, let level = Routine.Level.named(line) {
+                fputs("\(level.name)\n", stderr)
+            }
+            else if let skill = Skill.named(line) {
+                fputs("\(skill.name)\n", stderr)
+            } else {
+                fputs("Couldn't parse \"\(line)\"\n", stderr)
+                continue
+            }
+            lines.append(line)
+        }
+        return lines
+    }
+}
+
+let lines = getLines()
+
+if lines == [] {
+    print("Usage:")
+    print("    tariff routine_file -- generate tariff sheet for routine file")
+    print("    tariff -- generate tariff sheet interactively")
+    exit(0)
+}
+
+let rawLevel = Routine.Level.named(lines[0])
+let assumingLevel = rawLevel == nil
+let level = rawLevel ?? .gold
+if assumingLevel {
+    print("Assuming \(level.name) level")
 }
 
 // TODO: match skills against softer patterns
-let allSkills = lines.dropFirst().compactMap(Skill.named)
+let allSkills = (assumingLevel ? lines[...] : lines.dropFirst())
+    .compactMap(Skill.named)
 let maxSkills = [5, 7, 10, 10, 10][level.index]
 
 // If there are more skills than the max, let the first be a 1'' hold for
@@ -25,6 +64,9 @@ let skills = allSkills.count > maxSkills ? Array(allSkills.dropFirst()) : allSki
 let routine = Routine(introSkill: introSkill, skills: skills, level: level)
 
 let tariff = TariffSheet(routine)
+
+print()
+print("Tariff Sheet")
 
 print("level: \(tariff.level.name)")
 

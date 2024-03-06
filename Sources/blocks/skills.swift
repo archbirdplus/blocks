@@ -138,7 +138,8 @@ extension Skill {
     ]
 
     public static func named<Str: StringProtocol>(_ name: Str) -> Skill? {
-        Self.skills.first { $0.name == name }
+        let lowercased = name.lowercased()
+        return Self.skills.first { $0.name.lowercased() == lowercased }
     }
 }
 
