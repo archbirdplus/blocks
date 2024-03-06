@@ -1,6 +1,8 @@
 import blocks
 
-class Searcher {
+typealias Searcher = AStarSearcher
+
+class AStarSearcher {
     let skillSet: [Skill]
     let level: Routine.Level
     let maxSkills: Int
