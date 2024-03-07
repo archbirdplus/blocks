@@ -75,7 +75,7 @@ public func validateSupports(_ routine: Routine, _ err: ErrorLog) {
         return
     case .diamond:
         let hasOneArmHandstand = routine.skills.contains
-            { $0.isHandstand && $0.support == .oneArm }
+            { $0.isOneArmHandstand }
         if hasOneArmHandstand { return }
         err.err(
             "Missing one arm handstand.",

@@ -26,11 +26,13 @@ public class TariffSheet {
         _ = routine.skills.prefix(maxSkills).reduce(routine.introSkill)
             { prev, next in
             repeats[next.name, default: 0] += 1
+            // TODO: Confirm that switching hands in one arm gives transition value.
+            let maxRepeats = next.isOneArmHandstand ? 3 : 2
             declaration.append(
                 Box(
                     skill: next,
                     link: transitionValue(prev, to: next),
-                    value: repeats[next.name]! > 2 ? 0 : skillValue(next)
+                    value: repeats[next.name]! > maxRepeats ? 0 : skillValue(next)
                 )
             )
             return next

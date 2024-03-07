@@ -43,6 +43,11 @@ public class Skill {
         }
     }
 
+    // One arm handstands are very special.
+    public var isOneArmHandstand: Bool {
+        return isHandstand && support == .oneArm
+    }
+
     // TODO: (H.f.) Some skills have multiple variations, which allows it to
     // be repeated consecutively.
     public init(_ name: String, _ diff: Int, _ category: Category, _ support: Support = .twoArm, over: Bool = false) {
