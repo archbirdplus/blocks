@@ -36,9 +36,9 @@ public class Skill {
 
     public var isHandstand: Bool {
         switch category {
-        case .pike, .croc, .planche:
+        case .pike, .croc:
             return false
-        case .handstand, .arch, .yogi, .flag:
+        case .handstand, .arch, .yogi, .flag, .planche:
             return true
         }
     }
