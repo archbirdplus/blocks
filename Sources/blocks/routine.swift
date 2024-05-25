@@ -43,11 +43,11 @@ public class Routine {
     // (H.g.)
     // An optional skill that counts only for its transition difficulty, and
     // can be held for just 1 second.
-    public var introSkill: Skill?
-    public var skills: [Skill]
+    public var introSkill: Variant?
+    public var skills: [Variant]
     public var level: Level
 
-    public init(introSkill: Skill? = nil, skills: [Skill], level: Level) {
+    public init(introSkill: Variant? = nil, skills: [Variant], level: Level) {
         self.introSkill = introSkill
         self.skills = skills
         self.level = level

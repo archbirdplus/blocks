@@ -52,7 +52,12 @@ public func validateMinSkills(_ routine: Routine, _ err: ErrorLog) {
 
 public func validateMinHandstands(_ routine: Routine, _ err: ErrorLog) {
     let required = [0, 1, 2, 3, 4][routine.level.index]
-    let uniqueHandstands = Set(routine.skills.filter { $0.isHandstand }).count
+    let uniqueHandstands = Set(
+        routine.skills
+        .map { $0.skill }
+        .filter { $0.isHandstand }
+        .map { $0.ToD_id }
+    ).count
     if uniqueHandstands < required {
         err.err(
             "Not enough handstands: \(uniqueHandstands) / \(required).",
@@ -66,7 +71,8 @@ public func validateSupports(_ routine: Routine, _ err: ErrorLog) {
     case .bronze, .silver, .gold:
         return
     case .platinum:
-        let supports = Set(routine.skills.map { $0.support }).count
+        // Let's count different hands of one-arm handstands different supports.
+        let supports = Set(routine.skills.map { $0.fullSupport }).count
         if supports >= 2 { return }
         err.err(
             "Not enough points of support: \(supports) / 2.",
